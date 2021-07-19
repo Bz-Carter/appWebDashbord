@@ -9,19 +9,18 @@ import { ArticleService } from 'src/app/services/article.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ImageService } from 'src/app/services/image.service';
 import { TagService } from 'src/app/services/tag.service';
-declare let $ :any;
+declare let $: any;
 
 @Component({
   selector: 'app-article-create',
   templateUrl: './article-create.component.html',
-  styleUrls: ['./article-create.component.css']
+  styleUrls: ['./article-create.component.css'],
 })
 export class ArticleCreateComponent implements OnInit {
   categories: Category[] = [];
   tags: Tag[] = [];
   form: FormGroup;
   owner = Auth.user.id;
-
 
   constructor(
     private categoryService: CategoryService,
@@ -30,33 +29,43 @@ export class ArticleCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private imageService: ImageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     function setFormValidation(id) {
       $(id).validate({
-        highlight: function(element) {
-          $(element).closest('.form-group').removeClass('has-success').addClass('has-danger');
-          $(element).closest('.form-check').removeClass('has-success').addClass('has-danger');
+        highlight: function (element) {
+          $(element)
+            .closest('.form-group')
+            .removeClass('has-success')
+            .addClass('has-danger');
+          $(element)
+            .closest('.form-check')
+            .removeClass('has-success')
+            .addClass('has-danger');
         },
-        success: function(element) {
-          $(element).closest('.form-group').removeClass('has-danger').addClass('has-success');
-          $(element).closest('.form-check').removeClass('has-danger').addClass('has-success');
+        success: function (element) {
+          $(element)
+            .closest('.form-group')
+            .removeClass('has-danger')
+            .addClass('has-success');
+          $(element)
+            .closest('.form-check')
+            .removeClass('has-danger')
+            .addClass('has-success');
         },
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
           $(element).closest('.form-group').append(error);
         },
       });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       setFormValidation('#TypeValidation');
       setTimeout(function () {
         $('.selectpicker').selectpicker('refresh');
-     }, 100);
+      }, 100);
     });
-
 
     this.form = this.formBuilder.group({
       image: '',
@@ -66,31 +75,28 @@ export class ArticleCreateComponent implements OnInit {
       tags: this.formBuilder.array([]),
     });
 
-    this.categoryService.all().subscribe(
-      (res: Response) =>{
-        this.categories = res.data;
+    this.categoryService.all().subscribe((res: Response) => {
+      this.categories = res.data;
     });
 
-    this.tagService.all().subscribe(
-      (res: Response) => {
-        this.tags = res.data;
-        this.tags.forEach((p: Tag) => {
-          this.tagArray.push(
-            this.formBuilder.group({
-              value: false,
-              id: p.id
-            })
-          )
-        });
-      }
-    );
+    this.tagService.all().subscribe((res: Response) => {
+      this.tags = res.data;
+      this.tags.forEach((p: Tag) => {
+        this.tagArray.push(
+          this.formBuilder.group({
+            value: false,
+            id: p.id,
+          })
+        );
+      });
+    });
   }
 
-  get tagArray(){
+  get tagArray() {
     return this.form.get('tags') as FormArray;
   }
 
-  submit(){
+  submit() {
     const formData = this.form.getRawValue();
 
     const data = {
@@ -98,15 +104,12 @@ export class ArticleCreateComponent implements OnInit {
       title: formData.title,
       description: formData.description,
       category: formData.category,
-      tags: formData.tags.filter(p => p.value === true).map(p => p.id),
-      owner: this.owner
+      tags: formData.tags.filter((p) => p.value === true).map((p) => p.id),
+      owner: this.owner,
     };
-    this.articleService.create(data).subscribe(
-      res => {
-        this.router.navigate(['/articles']);
-      }
-    );
-
+    this.articleService.create(data).subscribe((res) => {
+      this.router.navigate(['/articles']);
+    });
   }
 
   upload(files: FileList) {
@@ -114,14 +117,11 @@ export class ArticleCreateComponent implements OnInit {
 
     const data = new FormData();
     data.append('image', file);
-    
-    this.imageService.upload(data).subscribe(
-      (res: any) => {
-        this.form.patchValue({
-          image: res.url
-        });
-      }
-    );
-  }
 
+    this.imageService.upload(data).subscribe((res: any) => {
+      this.form.patchValue({
+        image: res.url,
+      });
+    });
+  }
 }
