@@ -28,3 +28,4 @@ export class PaginatorComponent implements OnInit {
     this.pageChanged.emit(this.currentPage);
   }
 }
+
