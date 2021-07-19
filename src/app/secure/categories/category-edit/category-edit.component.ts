@@ -8,7 +8,7 @@ import { Category } from 'src/app/interfaces/category';
 @Component({
   selector: 'app-category-edit',
   templateUrl: './category-edit.component.html',
-  styleUrls: ['./category-edit.component.css']
+  styleUrls: ['./category-edit.component.css'],
 })
 export class CategoryEditComponent implements OnInit {
   form: FormGroup;
@@ -19,40 +19,33 @@ export class CategoryEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: '',
     });
 
-    this.route.params.subscribe(
-      params => {
-        this.categoryService.get(params.id).subscribe(
-          (res: Response) => {
-            this.category = res.data;
-            
-            this.form.patchValue({
-              name: this.category.name
-            });
-          }
-        );
-      }
-    );
+    this.route.params.subscribe((params) => {
+      this.categoryService.get(params.id).subscribe((res: Response) => {
+        this.category = res.data;
+
+        this.form.patchValue({
+          name: this.category.name,
+        });
+      });
+    });
   }
 
-  submit(){
+  submit() {
     const formData = this.form.getRawValue();
 
     const data = {
       name: formData.name,
     };
 
-    this.categoryService.update(this.category.id, data).subscribe(
-      res => {
-        this.router.navigate(['/categories']);
-      }
-    );
+    this.categoryService.update(this.category.id, data).subscribe((res) => {
+      this.router.navigate(['/categories']);
+    });
   }
-
 }
