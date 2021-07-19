@@ -1,0 +1,88 @@
+<div class="sidebar-wrapper">
+    <div class="user">
+      <div class="photo">
+        <img src="../assets/img/faces/avatar.jpg" />
+      </div>
+      <div class="user-info">
+        <a data-toggle="collapse" routerLink="/profile"  class="username">
+          <span>
+           {{user?.first_name}} {{user?.last_name}}
+          </span>
+        </a>
+      </div>
+    </div>
+    <ul class="nav">
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/dashboard']">
+          <i class="material-icons">dashboard</i>
+          <p> Dashboard </p>
+        </a>
+      </li>
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
+          <i class="material-icons">image</i>
+          <p> Galleries
+            <b class="caret"></b>
+          </p>
+        </a>
+        <div class="collapse" id="pagesExamples">
+          <ul class="nav">
+            <li class="nav-item " routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/galleries/photos']">
+                <span class="sidebar-mini"> P </span>
+                <span class="sidebar-normal"> Photos </span>
+              </a>
+            </li>
+            <li class="nav-item " routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/galleries/videos']">
+                <span class="sidebar-mini"> V </span>
+                <span class="sidebar-normal"> Videos </span>
+              </a>
+            </li>
+            <li class="nav-item " routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/galleries/medias']">
+                <span class="sidebar-mini"> M </span>
+                <span class="sidebar-normal"> Medias </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/categories']">
+          <i class="material-icons">attachment</i>
+          <p> Categories </p>
+        </a>
+      </li>
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/tags']">
+          <i class="material-icons">tags</i>
+          <p> Tags </p>
+        </a>
+      </li>
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/articles']">
+          <i class="material-icons">article</i>
+          <p> Articles </p>
+        </a>
+      </li>
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/users']">
+          <i class="material-icons">groups</i>
+          <p> Users </p>
+        </a>
+      </li>
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/roles']">
+          <i class="material-icons">rule</i>
+          <p> Roles </p>
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="../examples/widgets.html">
+          <i class="material-icons">settings</i>
+          <p> Settings </p>
+        </a>
+      </li>
+    </ul>
+  </div>
