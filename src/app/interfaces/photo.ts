@@ -8,3 +8,4 @@ export interface Photo {
   owner: User;
   created: Date;
 }
+
