@@ -7,3 +7,4 @@ export interface Video {
   owner: User;
   created: Date;
 }
+
