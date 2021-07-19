@@ -18,11 +18,6 @@ import { RouterModule } from '@angular/router';
     NavComponent,
     FooterComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
 })
 export class PublicModule {}
