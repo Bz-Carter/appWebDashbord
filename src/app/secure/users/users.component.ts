@@ -6,26 +6,24 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
   users: User[];
   currentPage = 1;
   lastPage: number;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.refresh();
   }
 
   refresh() {
-    this.userService.all(this.currentPage).subscribe(
-      (res: Response) => {
-        this.users = res.data;
-        this.lastPage = res.meta.last_page;
-      }
-    );
+    this.userService.all(this.currentPage).subscribe((res: Response) => {
+      this.users = res.data;
+      this.lastPage = res.meta.last_page;
+    });
   }
 
   prev() {
@@ -41,13 +39,10 @@ export class UsersComponent implements OnInit {
   }
 
   delete(id: number) {
-    if(confirm('Are you sure you want to delete this record?')){
-      this.userService.delete(id).subscribe(
-        res => {
-          this.users = this.users.filter(el => el.id !== id );
-        }
-      );
+    if (confirm('Are you sure you want to delete this record?')) {
+      this.userService.delete(id).subscribe((res) => {
+        this.users = this.users.filter((el) => el.id !== id);
+      });
     }
   }
-
 }
