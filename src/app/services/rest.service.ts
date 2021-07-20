@@ -3,25 +3,22 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export abstract class RestService {
-
   abstract endpoint(): string;
 
-  
-  constructor(private http: HttpClient) {
-   }
+  constructor(private http: HttpClient) {}
 
-   get url() {
-     return `${environment.api}/${this.endpoint()}`;
-   }
+  get url() {
+    return `${environment.api}/${this.endpoint()}`;
+  }
 
   all(page?: number) {
     let url = this.url;
 
-    if(page){
-      url += `?page=${page}`
+    if (page) {
+      url += `?page=${page}`;
     }
     return this.http.get(url);
   }

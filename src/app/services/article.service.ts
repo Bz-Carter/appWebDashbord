@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { RestService } from './rest.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ArticleService extends RestService {
   endpoint(): string {
-    return "articles";
+    return 'articles';
   }
 }
