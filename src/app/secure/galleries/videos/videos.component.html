@@ -1,38 +1,67 @@
-<h3>Gallerie Videos
-    <div class="col-md-9 pull-right">
-    <a routerLink="/galleries/videos/create" class="btn btn-fill btn-rose pull-right">
-        <i class="material-icons">add</i>
-        Add<div class="ripple-container"></div>
+<h3>
+  Gallerie Videos
+  <div class="col-md-9 pull-right">
+    <a
+      routerLink="/galleries/videos/create"
+      class="btn btn-fill btn-rose pull-right"
+    >
+      <i class="material-icons">add</i>
+      Add
+      <div class="ripple-container"></div>
     </a>
-    </div>
+  </div>
 </h3>
-  <br><br><br>
-  <div class="row">
-    <div class="col-md-4" *ngFor="let video of videos">
-      <div class="card card-product">
-        <div class="card-header card-header-image" data-header-animation="true">
-            <iframe class="img" [class.thumbnail]="thumbnail" src="https://www.youtube.com/embed/tgbNymZ7vqY">
-            </iframe>
+<br /><br /><br />
+<div class="row">
+  <div class="col-md-4" *ngFor="let video of videos">
+    <div class="card card-product">
+      <div class="card-header card-header-image" data-header-animation="true">
+        <iframe
+          class="img"
+          [class.thumbnail]="thumbnail"
+          src="https://www.youtube.com/embed/tgbNymZ7vqY"
+        >
+        </iframe>
+      </div>
+      <div class="card-body">
+        <div class="card-actions text-center">
+          <button type="button" class="btn btn-danger btn-link fix-broken-card">
+            <i class="material-icons">build</i> Fix Header!
+          </button>
+          <button
+            type="button"
+            class="btn btn-default btn-link"
+            rel="tooltip"
+            data-placement="bottom"
+            title="View"
+          >
+            <i class="material-icons">time</i>
+          </button>
+          <a
+            type="button"
+            [routerLink]="['/galleries/videos/', video.id, 'edit']"
+            class="btn btn-success btn-link"
+            rel="tooltip"
+            data-placement="bottom"
+            title="Edit"
+          >
+            <i class="material-icons">edit</i>
+          </a>
+          <button
+            (click)="delete(video.id)"
+            type="button"
+            class="btn btn-danger btn-link"
+            rel="tooltip"
+            data-placement="bottom"
+            title="Remove"
+          >
+            <i class="material-icons">close</i>
+          </button>
         </div>
-        <div class="card-body">
-          <div class="card-actions text-center">
-            <button type="button" class="btn btn-danger btn-link fix-broken-card">
-              <i class="material-icons">build</i> Fix Header!
-            </button>
-            <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="View">
-              <i class="material-icons">time</i>
-            </button>
-            <a type="button" [routerLink]="['/galleries/videos/', video.id, 'edit']" class="btn btn-success btn-link" rel="tooltip" data-placement="bottom" title="Edit">
-              <i class="material-icons">edit</i>
-            </a>
-            <button (click)="delete(video.id)" type="button" class="btn btn-danger btn-link" rel="tooltip" data-placement="bottom" title="Remove">
-              <i class="material-icons">close</i>
-            </button>
-          </div>
-          <h4 class="card-title">
-            <a >{{video.name}}</a>
-          </h4>
-        </div>
+        <h4 class="card-title">
+          <a>{{ video.name }}</a>
+        </h4>
       </div>
     </div>
   </div>
+</div>

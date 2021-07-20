@@ -5,18 +5,16 @@ import { Photo } from 'src/app/interfaces/photo';
 import { Response } from 'src/app/interfaces/response';
 import { ImageService } from 'src/app/services/image.service';
 import { PhotoService } from 'src/app/services/photo.service';
-declare let $ :any;
+declare let $: any;
 
 @Component({
   selector: 'app-photo-edit',
   templateUrl: './photo-edit.component.html',
-  styleUrls: ['./photo-edit.component.css']
+  styleUrls: ['./photo-edit.component.css'],
 })
 export class PhotoEditComponent implements OnInit {
-
   form: FormGroup;
   photo: Photo;
-
 
   constructor(
     private photoService: PhotoService,
@@ -24,33 +22,43 @@ export class PhotoEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private imageService: ImageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     function setFormValidation(id) {
       $(id).validate({
-        highlight: function(element) {
-          $(element).closest('.form-group').removeClass('has-success').addClass('has-danger');
-          $(element).closest('.form-check').removeClass('has-success').addClass('has-danger');
+        highlight: function (element) {
+          $(element)
+            .closest('.form-group')
+            .removeClass('has-success')
+            .addClass('has-danger');
+          $(element)
+            .closest('.form-check')
+            .removeClass('has-success')
+            .addClass('has-danger');
         },
-        success: function(element) {
-          $(element).closest('.form-group').removeClass('has-danger').addClass('has-success');
-          $(element).closest('.form-check').removeClass('has-danger').addClass('has-success');
+        success: function (element) {
+          $(element)
+            .closest('.form-group')
+            .removeClass('has-danger')
+            .addClass('has-success');
+          $(element)
+            .closest('.form-check')
+            .removeClass('has-danger')
+            .addClass('has-success');
         },
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
           $(element).closest('.form-group').append(error);
         },
       });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       setFormValidation('#TypeValidation');
       setTimeout(function () {
         $('.selectpicker').selectpicker('refresh');
-     }, 100);
+      }, 100);
     });
-
 
     this.form = this.formBuilder.group({
       name: '',
@@ -58,24 +66,19 @@ export class PhotoEditComponent implements OnInit {
       alt: '',
     });
 
-    this.route.params.subscribe(
-      params => {
-        this.photoService.get(params.id).subscribe(
-          (res:Response) => {
-            this.photo = res.data
-            this.form.patchValue({
-              name: this.photo.name,
-              image: this.photo.image,
-              alt: this.photo.alt
-            });
-          }
-        )
-      }
-    );
-
+    this.route.params.subscribe((params) => {
+      this.photoService.get(params.id).subscribe((res: Response) => {
+        this.photo = res.data;
+        this.form.patchValue({
+          name: this.photo.name,
+          image: this.photo.image,
+          alt: this.photo.alt,
+        });
+      });
+    });
   }
 
-  submit(){
+  submit() {
     const formData = this.form.getRawValue();
 
     const data = {
@@ -84,12 +87,9 @@ export class PhotoEditComponent implements OnInit {
       alt: formData.alt,
     };
 
-    this.photoService.update(this.photo.id, data).subscribe(
-      res => {
-        this.router.navigate(['/galleries/photos']);
-      }
-    );
-
+    this.photoService.update(this.photo.id, data).subscribe((res) => {
+      this.router.navigate(['/galleries/photos']);
+    });
   }
 
   upload(files: FileList) {
@@ -97,14 +97,11 @@ export class PhotoEditComponent implements OnInit {
 
     const data = new FormData();
     data.append('image', file);
-    
-    this.imageService.upload(data).subscribe(
-      (res: any) => {
-        this.form.patchValue({
-          image: res.url
-        });
-      }
-    );
-  }
 
+    this.imageService.upload(data).subscribe((res: any) => {
+      this.form.patchValue({
+        image: res.url,
+      });
+    });
+  }
 }
