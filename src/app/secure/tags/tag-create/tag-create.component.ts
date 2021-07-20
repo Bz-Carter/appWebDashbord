@@ -6,7 +6,7 @@ import { TagService } from 'src/app/services/tag.service';
 @Component({
   selector: 'app-tag-create',
   templateUrl: './tag-create.component.html',
-  styleUrls: ['./tag-create.component.css']
+  styleUrls: ['./tag-create.component.css'],
 })
 export class TagCreateComponent implements OnInit {
   form: FormGroup;
@@ -15,7 +15,7 @@ export class TagCreateComponent implements OnInit {
     private tagService: TagService,
     private formBuilder: FormBuilder,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -23,17 +23,14 @@ export class TagCreateComponent implements OnInit {
     });
   }
 
-  submit(){
+  submit() {
     const formData = this.form.getRawValue();
 
     const data = {
-      name: formData.name
+      name: formData.name,
     };
-    this.tagService.create(data).subscribe(
-      res => {
-        this.router.navigate(['/tags']);
-      }
-    );
-
+    this.tagService.create(data).subscribe((res) => {
+      this.router.navigate(['/tags']);
+    });
   }
 }

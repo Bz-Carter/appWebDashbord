@@ -8,7 +8,7 @@ import { Tag } from 'src/app/interfaces/tag';
 @Component({
   selector: 'app-tag-edit',
   templateUrl: './tag-edit.component.html',
-  styleUrls: ['./tag-edit.component.css']
+  styleUrls: ['./tag-edit.component.css'],
 })
 export class TagEditComponent implements OnInit {
   form: FormGroup;
@@ -19,40 +19,33 @@ export class TagEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: '',
     });
 
-    this.route.params.subscribe(
-      params => {
-        this.tagService.get(params.id).subscribe(
-          (res: Response) => {
-            this.tag = res.data;
-            
-            this.form.patchValue({
-              name: this.tag.name
-            });
-          }
-        );
-      }
-    );
+    this.route.params.subscribe((params) => {
+      this.tagService.get(params.id).subscribe((res: Response) => {
+        this.tag = res.data;
+
+        this.form.patchValue({
+          name: this.tag.name,
+        });
+      });
+    });
   }
 
-  submit(){
+  submit() {
     const formData = this.form.getRawValue();
 
     const data = {
       name: formData.name,
     };
 
-    this.tagService.update(this.tag.id, data).subscribe(
-      res => {
-        this.router.navigate(['/tags']);
-      }
-    );
+    this.tagService.update(this.tag.id, data).subscribe((res) => {
+      this.router.navigate(['/tags']);
+    });
   }
-
 }
