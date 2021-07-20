@@ -10,7 +10,7 @@ import { Role } from 'src/app/interfaces/role';
 @Component({
   selector: 'app-role-edit',
   templateUrl: './role-edit.component.html',
-  styleUrls: ['./role-edit.component.css']
+  styleUrls: ['./role-edit.component.css'],
 })
 export class RoleEditComponent implements OnInit {
   permissions: Permission[] = [];
@@ -23,69 +23,65 @@ export class RoleEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: '',
-      permissions: this.formBuilder.array([])
+      permissions: this.formBuilder.array([]),
     });
 
-    this.permissionService.all().subscribe(
-      (res: Response) => {
-        this.permissions = res.data;
-        this.permissions.forEach((p: Permission) => {
-          this.permissionArray.push(
-            this.formBuilder.group({
-              value: false,
-              id: p.id
-            })
-          )
-        });
-      }
-    );
-
-    this.route.params.subscribe(
-      params => {
-        this.roleService.get(params.id).subscribe(
-          (res: Response) => {
-            this.role = res.data;
-            let values = this.permissions.map((p: Permission) => {
-              let selected = this.role.permissions
-              .filter((rolePermission: Permission) => rolePermission.id === p.id).length > 0;
-              
-              return {
-                value: selected,
-                id: p.id
-              }
-            });
-
-            this.form.patchValue({
-              name: this.role.name,
-              permissions: values
-            });
-          }
+    this.permissionService.all().subscribe((res: Response) => {
+      this.permissions = res.data;
+      this.permissions.forEach((p: Permission) => {
+        this.permissionArray.push(
+          this.formBuilder.group({
+            value: false,
+            id: p.id,
+          })
         );
-      }
-    );
+      });
+    });
+
+    this.route.params.subscribe((params) => {
+      this.roleService.get(params.id).subscribe((res: Response) => {
+        this.role = res.data;
+        let values = this.permissions.map((p: Permission) => {
+          let selected =
+            this.role.permissions.filter(
+              (rolePermission: Permission) => rolePermission.id === p.id
+            ).length > 0;
+
+          return {
+            value: selected,
+            id: p.id,
+          };
+        });
+
+        this.form.patchValue({
+          name: this.role.name,
+          permissions: values,
+        });
+      });
+    });
   }
 
-  get permissionArray(){
+  get permissionArray() {
     return this.form.get('permissions') as FormArray;
   }
 
-  submit(){
+  submit() {
     const formData = this.form.getRawValue();
 
     const data = {
       name: formData.name,
-      permissions: formData.permissions.filter(p => p.value === true).map(p => p.id)
+      permissions: formData.permissions
+        .filter((p) => p.value === true)
+        .map((p) => p.id),
     };
 
-    this.roleService.update(this.role.id, data).subscribe(
-      res => {
-        this.router.navigate(['/roles']);
-      }
-    );
+    this.roleService.update(this.role.id, data).subscribe((res) => {
+      this.router.navigate(['/roles']);
+    });
   }
 }
