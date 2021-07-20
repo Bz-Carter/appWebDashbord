@@ -1,4 +1,8 @@
-<ul class="nav nav-pills nav-pills-warning nav-pills-icons justify-content-center" data-color="rose" role="tablist">
+<ul
+  class="nav nav-pills nav-pills-warning nav-pills-icons justify-content-center"
+  data-color="rose"
+  role="tablist"
+>
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#about" role="tablist">
       <i class="material-icons">info</i> Information
@@ -11,22 +15,29 @@
   </li>
 </ul>
 <div class="col-md-8 col-12 mr-auto ml-auto">
-    <!--      Wizard container        -->
-    <div class="wizard-container">
-      <div class="card card-wizard" data-color="rose" id="wizardProfile">
-       <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
-    
+  <!--      Wizard container        -->
+  <div class="wizard-container">
+    <div class="card card-wizard" data-color="rose" id="wizardProfile">
+      <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+
       <div class="card-body">
         <div class="tab-content">
           <div class="tab-pane active" id="about">
-            <h5 class="info-text"> Let's start with the basic information (with validation)</h5>
+            <h5 class="info-text">
+              Let's start with the basic information (with validation)
+            </h5>
             <form [formGroup]="infoForm" (submit)="infoSubmit()">
               <div class="row justify-content-center">
                 <div class="col-sm-4">
                   <div class="picture-container">
                     <div class="picture">
-                      <img src="../../assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="" />
-                      <input type="file" id="wizard-picture">
+                      <img
+                        src="../../assets/img/default-avatar.png"
+                        class="picture-src"
+                        id="wizardPicturePreview"
+                        title=""
+                      />
+                      <input type="file" id="wizard-picture" />
                     </div>
                     <h6 class="description">Choose Picture</h6>
                   </div>
@@ -39,8 +50,16 @@
                       </span>
                     </div>
                     <div class="form-group">
-                      <label for="first_name" class="bmd-label-floating">First Name</label>
-                      <input type="text" class="form-control" formControlName="first_name" name="first_name" required>
+                      <label for="first_name" class="bmd-label-floating"
+                        >First Name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="first_name"
+                        name="first_name"
+                        required
+                      />
                     </div>
                   </div>
                   <div class="input-group form-control-lg">
@@ -50,8 +69,16 @@
                       </span>
                     </div>
                     <div class="form-group">
-                      <label for="last_name" class="bmd-label-floating">Last Name</label>
-                      <input type="text" class="form-control" formControlName="last_name" name="last_name" required>
+                      <label for="last_name" class="bmd-label-floating"
+                        >Last Name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="last_name"
+                        name="last_name"
+                        required
+                      />
                     </div>
                   </div>
                 </div>
@@ -63,18 +90,33 @@
                       </span>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInput1" class="bmd-label-floating">Email</label>
-                      <input type="email" class="form-control" formControlName="email" name="email" required>
+                      <label for="exampleInput1" class="bmd-label-floating"
+                        >Email</label
+                      >
+                      <input
+                        type="email"
+                        class="form-control"
+                        formControlName="email"
+                        name="email"
+                        required
+                      />
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-rose pull-right">Update Profile<div class="ripple-container"></div></button>   
+                <button type="submit" class="btn btn-rose pull-right">
+                  Update Profile
+                  <div class="ripple-container"></div>
+                </button>
               </div>
             </form>
           </div>
           <div class="tab-pane" id="account">
-            <h5 class="info-text"> What are you doing? (checkboxes) </h5>
-            <form id="RegisterValidation" [formGroup]="passwordForm" (submit)="passwordSubmit()">
+            <h5 class="info-text">What are you doing? (checkboxes)</h5>
+            <form
+              id="RegisterValidation"
+              [formGroup]="passwordForm"
+              (submit)="passwordSubmit()"
+            >
               <div class="row justify-content-center">
                 <div class="col-lg-10 mt-3">
                   <div class="input-group form-control-lg">
@@ -84,8 +126,17 @@
                       </span>
                     </div>
                     <div class="form-group">
-                      <label for="password" class="bmd-label-floating"> Password *</label>
-                      <input type="password" formControlName="password" class="form-control" id="password" required="true" name="password">
+                      <label for="password" class="bmd-label-floating">
+                        Password *</label
+                      >
+                      <input
+                        type="password"
+                        formControlName="password"
+                        class="form-control"
+                        id="password"
+                        required="true"
+                        name="password"
+                      />
                     </div>
                   </div>
                 </div>
@@ -97,20 +148,31 @@
                       </span>
                     </div>
                     <div class="form-group">
-                      <label for="password_confirm" class="bmd-label-floating"> Confirm Password *</label>
-                      <input type="password" formControlName="password_confirm" class="form-control" id="password_confirm" required="true" equalTo="#password" name="password_confirm">
+                      <label for="password_confirm" class="bmd-label-floating">
+                        Confirm Password *</label
+                      >
+                      <input
+                        type="password"
+                        formControlName="password_confirm"
+                        class="form-control"
+                        id="password_confirm"
+                        required="true"
+                        equalTo="#password"
+                        name="password_confirm"
+                      />
                     </div>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-rose pull-right">Change Password<div class="ripple-container"></div></button>   
+                <button type="submit" class="btn btn-rose pull-right">
+                  Change Password
+                  <div class="ripple-container"></div>
+                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      </div>
     </div>
-    <!-- wizard container -->
   </div>
-
-  
+  <!-- wizard container -->
+</div>
