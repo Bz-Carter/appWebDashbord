@@ -37,9 +37,6 @@ import { VideoCreateComponent } from './galleries/videos/video-create/video-crea
 import { MediaCreateComponent } from './galleries/medias/media-create/media-create.component';
 import { MediaEditComponent } from './galleries/medias/media-edit/media-edit.component';
 
-
-
-
 @NgModule({
   declarations: [
     SecureComponent,
@@ -77,14 +74,7 @@ import { MediaEditComponent } from './galleries/medias/media-edit/media-edit.com
     MediaCreateComponent,
     MediaEditComponent,
   ],
-  exports: [
-    SecureComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+  exports: [SecureComponent],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
 })
-export class SecureModule { }
+export class SecureModule {}
