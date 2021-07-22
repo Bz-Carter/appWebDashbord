@@ -76,6 +76,17 @@
           </div>
 
           <div class="row">
+            <label class="col-sm-2 col-form-label">Body</label>
+            <div class="col-sm-9">
+              <div class="form-group">
+                <ckeditor [editor]="Editor" formControlName="body"></ckeditor>
+              </div>
+            </div>
+          </div>
+
+          <!-- <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor> -->
+
+          <div class="row">
             <label class="col-sm-2 col-form-label">Category </label>
             <div class="col-sm-6">
               <div class="form-group">

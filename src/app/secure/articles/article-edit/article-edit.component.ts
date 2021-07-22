@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Article } from 'src/app/interfaces/article';
 import { Category } from 'src/app/interfaces/category';
 import { Response } from 'src/app/interfaces/response';
@@ -17,6 +18,7 @@ declare let $: any;
   styleUrls: ['./article-edit.component.css'],
 })
 export class ArticleEditComponent implements OnInit {
+  public Editor = ClassicEditor;
   categories: Category[] = [];
   tags: Tag[] = [];
   article: Article;
@@ -72,6 +74,7 @@ export class ArticleEditComponent implements OnInit {
       image: '',
       title: '',
       description: '',
+      body: '',
       category: '',
       tags: this.formBuilder.array([]),
     });
@@ -111,6 +114,7 @@ export class ArticleEditComponent implements OnInit {
           title: this.article.title,
           image: this.article.image,
           description: this.article.description,
+          body: this.article.body,
           category: this.article.category,
           tags: values,
         });
@@ -129,6 +133,7 @@ export class ArticleEditComponent implements OnInit {
       image: formData.image,
       title: formData.title,
       description: formData.description,
+      body: formData.body,
       category: formData.category,
       tags: formData.tags.filter((p) => p.value === true).map((p) => p.id),
     };

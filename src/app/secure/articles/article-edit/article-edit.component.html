@@ -76,14 +76,14 @@
               </div>
             </div>
           </div>
-          <!-- <div class="row">
-                  <label class="col-sm-2 col-form-label">Image</label>
-                  <div class="col-sm-9">
-                      <div class="form-group">
-                          <input class="form-control" name="image" type="text" formControlName="image" required="true" />
-                      </div>
-                  </div>
-                </div> -->
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Body</label>
+            <div class="col-sm-9">
+              <div class="form-group">
+                <ckeditor [editor]="Editor" formControlName="body" data="article.body"></ckeditor>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <label class="col-sm-2 col-form-label">Category </label>
             <div class="col-sm-6">

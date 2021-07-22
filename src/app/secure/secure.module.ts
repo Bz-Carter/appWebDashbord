@@ -36,6 +36,7 @@ import { VideoEditComponent } from './galleries/videos/video-edit/video-edit.com
 import { VideoCreateComponent } from './galleries/videos/video-create/video-create.component';
 import { MediaCreateComponent } from './galleries/medias/media-create/media-create.component';
 import { MediaEditComponent } from './galleries/medias/media-edit/media-edit.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,6 @@ import { MediaEditComponent } from './galleries/medias/media-edit/media-edit.com
     MediaEditComponent,
   ],
   exports: [SecureComponent],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, CKEditorModule],
 })
 export class SecureModule {}
