@@ -31,6 +31,7 @@ import { VideoCreateComponent } from './secure/galleries/videos/video-create/vid
 import { VideoEditComponent } from './secure/galleries/videos/video-edit/video-edit.component';
 import { MediaEditComponent } from './secure/galleries/medias/media-edit/media-edit.component';
 import { MediaCreateComponent } from './secure/galleries/medias/media-create/media-create.component';
+import { SettingsComponent } from './secure/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,7 @@ const routes: Routes = [
       { path: 'galleries/medias', component: MediasComponent },
       { path: 'galleries/medias/create', component: MediaCreateComponent },
       { path: 'galleries/medias/:id/edit', component: MediaEditComponent },
+      { path: 'settings', component: SettingsComponent },
     ],
   },
   {

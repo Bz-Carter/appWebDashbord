@@ -23,6 +23,7 @@ export class ArticleEditComponent implements OnInit {
   tags: Tag[] = [];
   article: Article;
   form: FormGroup;
+  id: number;
 
   constructor(
     private categoryService: CategoryService,
@@ -83,43 +84,44 @@ export class ArticleEditComponent implements OnInit {
       this.categories = res.data;
     });
 
-    this.tagService.all().subscribe((res: Response) => {
-      this.tags = res.data;
-      this.tags.forEach((p: Tag) => {
-        this.tagArray.push(
-          this.formBuilder.group({
-            value: false,
-            id: p.id,
-          })
+    this.tagService.all().subscribe(
+      tags => {
+        this.tags = tags;
+        this.tags.forEach(p => {
+          this.tagArray.push(
+            this.formBuilder.group({
+              value: false,
+              id: p.id
+            })
+          );
+        });
+      }
+    );
+
+    this.id = this.route.snapshot.params.id;
+
+    this.articleService.get(this.id).subscribe(
+      (article: Article) => {
+        const values = this.tags.map(
+          p => {
+            return {
+              value: article.tags.some(r => r.id === p.id),
+              id: p.id
+            };
+          }
         );
-      });
-    });
-
-    this.route.params.subscribe((params) => {
-      this.articleService.get(params.id).subscribe((res: Response) => {
-        this.article = res.data;
-        let values = this.tags.map((p: Tag) => {
-          let selected =
-            this.article.tags.filter(
-              (articleTag: Tag) => articleTag.id === p.id
-            ).length > 0;
-
-          return {
-            value: selected,
-            id: p.id,
-          };
-        });
-
         this.form.patchValue({
-          title: this.article.title,
-          image: this.article.image,
-          description: this.article.description,
-          body: this.article.body,
-          category: this.article.category,
-          tags: values,
+          name: article.title,
+          image: article.image,
+          description: article.description,
+          body: article.body,
+          category: article.category,
+          tags: values
         });
-      });
-    });
+      }
+    );
+
+    
   }
 
   get tagArray() {
