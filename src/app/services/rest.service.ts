@@ -1,40 +1,41 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export abstract class RestService {
+  abstract endpoint(): string;
 
-  abstract get endpoint(): string;
+  constructor(private http: HttpClient) {}
 
-  constructor(protected http: HttpClient) {
+  get url() {
+    return `${environment.api}/${this.endpoint()}`;
   }
 
-  all(page?: number): Observable<any> {
-    let url = this.endpoint;
+  all(page?: number) {
+    let url = this.url;
 
     if (page) {
       url += `?page=${page}`;
     }
-
     return this.http.get(url);
   }
 
-  create(data): Observable<any> {
-    return this.http.post(this.endpoint, data);
+  get(id: number) {
+    return this.http.get(`${this.url}/${id}`);
   }
 
-  get(id: number): Observable<any> {
-    return this.http.get(`${this.endpoint}/${id}`);
+  create(data) {
+    return this.http.post(this.url, data);
   }
 
-  update(id: number, data): Observable<any> {
-    return this.http.put(`${this.endpoint}/${id}`, data);
+  update(id: number, data) {
+    return this.http.put(`${this.url}/${id}`, data);
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.endpoint}/${id}`);
+  delete(id: number) {
+    return this.http.delete(`${this.url}/${id}`);
   }
 }

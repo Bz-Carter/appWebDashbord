@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { RestService } from './rest.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleService extends RestService {
-  endpoint = `${environment.api}/roles`;
+  endpoint(): string {
+    return 'roles';
+  }
 }
