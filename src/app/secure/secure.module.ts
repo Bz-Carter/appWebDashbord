@@ -85,7 +85,7 @@ import { CalendarEditComponent } from './calendars/calendar-edit/calendar-edit.c
     CommonModule, 
     RouterModule, 
     FormsModule, 
-    ReactiveFormsModule, 
+    ReactiveFormsModule  
   ],
 })
 export class SecureModule {}
