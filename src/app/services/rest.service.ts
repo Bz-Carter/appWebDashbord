@@ -14,12 +14,9 @@ export abstract class RestService {
     return `${environment.api}/${this.endpoint()}`;
   }
 
-  all(page?: number) {
+  all() {
     let url = this.url;
 
-    if (page) {
-      url += `?page=${page}`;
-    }
     return this.http.get(url);
   }
 

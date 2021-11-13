@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from '@angular/router';
 import { Auth } from 'src/app/classes/auth';
 import { Category } from 'src/app/interfaces/category';
@@ -18,7 +17,6 @@ declare let $: any;
   styleUrls: ['./article-create.component.css'],
 })
 export class ArticleCreateComponent implements OnInit {
-  public Editor = ClassicEditor;
   categories: Category[] = [];
   tags: Tag[] = [];
   form: FormGroup;

@@ -36,7 +36,17 @@ import { VideoEditComponent } from './galleries/videos/video-edit/video-edit.com
 import { VideoCreateComponent } from './galleries/videos/video-create/video-create.component';
 import { MediaCreateComponent } from './galleries/medias/media-create/media-create.component';
 import { MediaEditComponent } from './galleries/medias/media-edit/media-edit.component';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FullCalendarModule } from '@fullcalendar/angular'; 
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { CalendarsComponent } from './calendars/calendars.component';
+import { CalendarCreateComponent } from './calendars/calendar-create/calendar-create.component';
+import { CalendarEditComponent } from './calendars/calendar-edit/calendar-edit.component';
+
+FullCalendarModule.registerPlugins([ 
+  interactionPlugin,
+  dayGridPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -74,8 +84,17 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     VideoCreateComponent,
     MediaCreateComponent,
     MediaEditComponent,
+    CalendarsComponent,
+    CalendarCreateComponent,
+    CalendarEditComponent,
   ],
   exports: [SecureComponent],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, CKEditorModule],
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    FullCalendarModule,
+  ],
 })
 export class SecureModule {}

@@ -18,15 +18,15 @@ export class VideosComponent implements OnInit {
     this.refresh();
   }
 
-  refresh(currentPage: number = 1) {
-    this.videoService.all(currentPage).subscribe((res: Response) => {
+  refresh() {
+    this.videoService.all().subscribe((res: Response) => {
       this.videos = res.data;
-      this.lastPage = res.meta.last_page;
+      
     });
   }
 
   delete(id: number) {
-    if (confirm('Are you sure you want to delete this record?')) {
+    if (confirm('Êtes-vous sûre de vouloir supprimer cet enregistrement?')) {
       this.videoService.delete(id).subscribe((res) => {
         this.videos = this.videos.filter((el) => el.id !== id);
       });

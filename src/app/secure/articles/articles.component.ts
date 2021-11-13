@@ -10,7 +10,6 @@ import { ArticleService } from 'src/app/services/article.service';
 })
 export class ArticlesComponent implements OnInit {
   articles: Article[] = [];
-  lastPage: number;
 
   constructor(private articleService: ArticleService) {}
 
@@ -18,15 +17,15 @@ export class ArticlesComponent implements OnInit {
     this.refresh();
   }
 
-  refresh(currentPage: number = 1) {
-    this.articleService.all(currentPage).subscribe((res: Response) => {
+  refresh() {
+    this.articleService.all().subscribe((res: Response) => {
       this.articles = res.data;
-      this.lastPage = res.meta.last_page;
+      
     });
   }
 
   delete(id: number) {
-    if (confirm('Are you sure you want to delete this record?')) {
+    if (confirm('Êtes-vous sûre de vouloir supprimer cet enregistrement?')) {
       this.articleService.delete(id).subscribe((res) => {
         this.articles = this.articles.filter((el) => el.id !== id);
       });

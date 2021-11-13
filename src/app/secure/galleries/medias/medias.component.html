@@ -13,11 +13,11 @@
 </h3>
 <br /><br /><br />
 <div class="row">
-  <div class="col-md-4" *ngFor="let media of medias">
+  <div class="col-md-4" *ngFor="let event of events">
     <div class="card card-product">
       <div class="card-header card-header-image" data-header-animation="true">
         <a>
-          <img class="img" [src]="media.image" />
+          <img class="img" [src]="event.image" />
         </a>
       </div>
       <div class="card-body">
@@ -25,18 +25,9 @@
           <button type="button" class="btn btn-danger btn-link fix-broken-card">
             <i class="material-icons">build</i> Fix Header!
           </button>
-          <button
-            type="button"
-            class="btn btn-default btn-link"
-            rel="tooltip"
-            data-placement="bottom"
-            title="View"
-          >
-            <i class="material-icons">art_track</i>
-          </button>
           <a
             type="button"
-            [routerLink]="['/galleries/medias/', media.id, 'edit']"
+            [routerLink]="['/galleries/medias/', event.id, 'edit']"
             class="btn btn-success btn-link"
             rel="tooltip"
             data-placement="bottom"
@@ -45,7 +36,7 @@
             <i class="material-icons">edit</i>
           </a>
           <button
-            (click)="delete(media.id)"
+            (click)="delete(event.id)"
             type="button"
             class="btn btn-danger btn-link"
             rel="tooltip"
@@ -56,8 +47,22 @@
           </button>
         </div>
         <h4 class="card-title">
-          <a>{{ media.name }}</a>
+          <a>{{ event.name }}</a>
         </h4>
+        <div class="card-description">
+          {{ event.description }}
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="stats">
+          <h6>Photos({{event.photos.length}}) | Vidéos({{ event.videos.length}})</h6>
+        </div>
+        <div class="price">
+          <h6>{{ event.created | date: "d/M/yy" }}</h6>
+        </div>
+        <div class="stats">
+          <p class="card-category"><i class="material-icons">place</i> {{event.category}}</p>
+        </div>
       </div>
     </div>
   </div>

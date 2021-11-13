@@ -58,6 +58,8 @@ export class RoleEditComponent implements OnInit {
           };
         });
 
+        console.log(values); // boucle tags
+
         this.form.patchValue({
           name: this.role.name,
           permissions: values,

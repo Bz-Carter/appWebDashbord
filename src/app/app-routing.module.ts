@@ -32,6 +32,9 @@ import { VideoEditComponent } from './secure/galleries/videos/video-edit/video-e
 import { MediaEditComponent } from './secure/galleries/medias/media-edit/media-edit.component';
 import { MediaCreateComponent } from './secure/galleries/medias/media-create/media-create.component';
 import { SettingsComponent } from './secure/settings/settings.component';
+import { CalendarCreateComponent } from './secure/calendars/calendar-create/calendar-create.component';
+import { CalendarsComponent } from './secure/calendars/calendars.component';
+import { CalendarEditComponent } from './secure/calendars/calendar-edit/calendar-edit.component';
 
 const routes: Routes = [
   {
@@ -65,6 +68,9 @@ const routes: Routes = [
       { path: 'galleries/medias', component: MediasComponent },
       { path: 'galleries/medias/create', component: MediaCreateComponent },
       { path: 'galleries/medias/:id/edit', component: MediaEditComponent },
+      { path: 'calendar/create', component: CalendarCreateComponent },
+      { path: 'calendar/:id/edit', component: CalendarEditComponent },
+      { path: 'calendar', component: CalendarsComponent },
       { path: 'settings', component: SettingsComponent },
     ],
   },

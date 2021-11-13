@@ -20,7 +20,7 @@ export class RolesComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (confirm('Are you sure you want to delete this record?')) {
+    if (confirm('Êtes-vous sûre de vouloir supprimer cet enregistrement?')) {
       this.roleService.delete(id).subscribe((res) => {
         this.roles = this.roles.filter((el) => el.id !== id);
       });

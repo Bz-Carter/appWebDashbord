@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from 'src/app/interfaces/category';
 import { Media } from 'src/app/interfaces/media';
 import { Response } from 'src/app/interfaces/response';
+import { CategoryService } from 'src/app/services/category.service';
 import { MediaService } from 'src/app/services/media.service';
 
 @Component({
@@ -9,26 +11,41 @@ import { MediaService } from 'src/app/services/media.service';
   styleUrls: ['./medias.component.css'],
 })
 export class MediasComponent implements OnInit {
-  medias: Media[] = [];
-  lastPage: number;
+  categories: Category[] = [];
+  events: Media[] = [];
 
-  constructor(private mediaService: MediaService) {}
+  constructor(
+    private mediaService: MediaService,
+    private categoryService: CategoryService,
+  ) {}
 
   ngOnInit(): void {
     this.refresh();
   }
 
-  refresh(currentPage: number = 1) {
-    this.mediaService.all(currentPage).subscribe((res: Response) => {
-      this.medias = res.data;
-      this.lastPage = res.meta.last_page;
+  refresh() {
+
+    this.categoryService.all().subscribe((res: Response) => {
+      this.categories = res.data;
+    });
+
+    this.mediaService.all().subscribe((res: Response) => {
+      this.events = res.data;
+      this.events.forEach((a: any) => {
+        this.categories.forEach((c: any) => {
+          if (a.category === c.id) {
+            a.category = c.name;
+          }
+        });
+      });
+      console.log(this.events);
     });
   }
 
   delete(id: number) {
-    if (confirm('Are you sure you want to delete this record?')) {
+    if (confirm('Êtes-vous sûre de vouloir supprimer cet enregistrement?')) {
       this.mediaService.delete(id).subscribe((res) => {
-        this.medias = this.medias.filter((el) => el.id !== id);
+        this.events = this.events.filter((el) => el.id !== id);
       });
     }
   }

@@ -1,0 +1,65 @@
+<h3>
+    Annonces
+    <div class="col-md-9 pull-right">
+      <a
+        routerLink="/calendar/create"
+        class="btn btn-fill btn-rose pull-right"
+      >
+        <i class="material-icons">add</i>
+        Add
+        <div class="ripple-container"></div>
+      </a>
+    </div>
+  </h3>
+  <br /><br /><br />
+  <div class="row">
+    <div class="col-md-4" *ngFor="let annonce of annonces">
+      <div class="card card-product">
+        <div class="card-header card-header-image" data-header-animation="true">
+          <a>
+            <img class="img" [src]="annonce.image" />
+          </a>
+        </div>
+        <div class="card-body">
+          <div class="card-actions text-center">
+            <button type="button" class="btn btn-danger btn-link fix-broken-card">
+              <i class="material-icons">build</i> Fix Header!
+            </button>
+            <a
+              type="button"
+              [routerLink]="['/calendar/', annonce.id, 'edit']"
+              class="btn btn-success btn-link"
+              rel="tooltip"
+              data-placement="bottom"
+              title="Edit"
+            >
+              <i class="material-icons">edit</i>
+            </a>
+            <button
+              (click)="delete(annonce.id)"
+              type="button"
+              class="btn btn-danger btn-link"
+              rel="tooltip"
+              data-placement="bottom"
+              title="Remove"
+            >
+              <i class="material-icons">close</i>
+            </button>
+          </div>
+          <h4 class="card-title">
+            <a>{{ annonce.title }}</a>
+          </h4>
+          <div class="card-description">
+            {{ annonce.description }}
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">date_range</i>
+            {{ annonce.start | date: "MMM d, y, H:m" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

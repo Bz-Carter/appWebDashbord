@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Article } from 'src/app/interfaces/article';
 import { Category } from 'src/app/interfaces/category';
 import { Response } from 'src/app/interfaces/response';
@@ -18,7 +17,6 @@ declare let $: any;
   styleUrls: ['./article-edit.component.css'],
 })
 export class ArticleEditComponent implements OnInit {
-  public Editor = ClassicEditor;
   categories: Category[] = [];
   tags: Tag[] = [];
   article: Article;
@@ -109,6 +107,8 @@ export class ArticleEditComponent implements OnInit {
             id: p.id,
           };
         });
+
+        console.log(values); // boucle tags
 
         this.form.patchValue({
           title: this.article.title,

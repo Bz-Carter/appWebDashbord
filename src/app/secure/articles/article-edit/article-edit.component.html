@@ -80,7 +80,7 @@
             <label class="col-sm-2 col-form-label">Body</label>
             <div class="col-sm-9">
               <div class="form-group">
-                <ckeditor [editor]="Editor" formControlName="body" data="article.body"></ckeditor>
+               <textarea formControlName="body" cols="30" rows="10"></textarea>
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@
                     <input
                       class="form-check-input"
                       type="checkbox"
-                      formControlName="value"
+                      formControlName="value" checked
                     />
                     {{ tag.name }}
                     <span class="form-check-sign">
