@@ -3,5 +3,6 @@ export interface Calendar {
   image: string;
   title: string;
   start: Date;
+  end: Date;
   description: string;
 }

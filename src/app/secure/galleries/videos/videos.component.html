@@ -16,12 +16,7 @@
   <div class="col-md-4" *ngFor="let video of videos">
     <div class="card card-product">
       <div class="card-header card-header-image" data-header-animation="true">
-        <iframe
-          class="img"
-          [class.thumbnail]="thumbnail"
-          src="https://www.youtube.com/embed/tgbNymZ7vqY"
-        >
-        </iframe>
+        <youtube-player videoId="{{video.link}}" width="307" height="261"></youtube-player>
       </div>
       <div class="card-body">
         <div class="card-actions text-center">

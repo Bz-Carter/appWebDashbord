@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+
 import { Article } from 'src/app/interfaces/article';
 import { Category } from 'src/app/interfaces/category';
 import { Response } from 'src/app/interfaces/response';
@@ -21,6 +23,53 @@ export class ArticleEditComponent implements OnInit {
   tags: Tag[] = [];
   article: Article;
   form: FormGroup;
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    // upload: (file: File) => { ... },
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+};
 
   constructor(
     private categoryService: CategoryService,
@@ -69,11 +118,11 @@ export class ArticleEditComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      image: '',
-      title: '',
-      description: '',
-      body: '',
-      category: '',
+      image: ['', Validators.required],
+      title:['', Validators.required],
+      description: ['', Validators.required],
+      body: ['', Validators.required],
+      category: ['', Validators.required],
       tags: this.formBuilder.array([]),
     });
 
@@ -127,7 +176,8 @@ export class ArticleEditComponent implements OnInit {
   }
 
   submit() {
-    const formData = this.form.getRawValue();
+    if (this.form.valid) {
+      const formData = this.form.getRawValue();
 
     const data = {
       image: formData.image,
@@ -140,6 +190,8 @@ export class ArticleEditComponent implements OnInit {
     this.articleService.update(this.article.id, data).subscribe((res) => {
       this.router.navigate(['/articles']);
     });
+    }
+    
   }
 
   upload(files: FileList) {

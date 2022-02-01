@@ -45,13 +45,21 @@
                   </div>
               </div>
               <div class="row">
-                <label class="col-sm-2 col-form-label">Date</label>
+                <label class="col-sm-2 col-form-label">Debut</label>
                 <div class="col-sm-9">
                     <div class="form-group">
                         <input class="form-control" name="start" type="datetime-local" formControlName="start" required="true" />
                     </div>
                 </div>
-            </div>
+              </div>
+              <div class="row">
+                <label class="col-sm-2 col-form-label">Fin</label>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <input class="form-control" name="end" type="datetime-local" formControlName="end" required="true" />
+                    </div>
+                </div>
+              </div>
           </div>
           <div class="card-footer ml-auto mr-auto">
             <button [disabled]="!form.valid" type="submit" class="btn btn-rose">Save</button>

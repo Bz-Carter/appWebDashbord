@@ -27,6 +27,7 @@ export class CalendarCreateComponent implements OnInit {
       image: ['', Validators.required],
       title: ['', Validators.required],
       start: ['', Validators.required],
+      end: ['', Validators.required],
       description: '',
     });
   }
@@ -39,6 +40,7 @@ export class CalendarCreateComponent implements OnInit {
         image: formData.image,
         title: formData.title,
         start: formData.start,
+        end: formData.end,
         description: formData.description,
       };
       this.calendarService.create(data).subscribe((res) => {

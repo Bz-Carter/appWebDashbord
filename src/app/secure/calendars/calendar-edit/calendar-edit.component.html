@@ -74,18 +74,31 @@
               </div>
             </div>
             <div class="row">
-                <label class="col-sm-2 col-form-label">Date</label>
-                <div class="col-sm-9">
-                  <div class="form-group">
-                    <input
-                      class="form-control"
-                      name="start"
-                      formControlName="start"
-                      type="datetime-local"
-                    />
-                  </div>
+              <label class="col-sm-2 col-form-label">Debut</label>
+              <div class="col-sm-9">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    name="start"
+                    formControlName="start"
+                    type="datetime-local"
+                  />
                 </div>
               </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-2 col-form-label">Fin</label>
+              <div class="col-sm-9">
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    name="end"
+                    formControlName="end"
+                    type="datetime-local"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-footer ml-auto mr-auto">
             <button [disabled]="!form.valid" type="submit" class="btn btn-rose">Modifier</button>

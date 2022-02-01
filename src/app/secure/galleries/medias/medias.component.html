@@ -49,9 +49,6 @@
         <h4 class="card-title">
           <a>{{ event.name }}</a>
         </h4>
-        <div class="card-description">
-          {{ event.description }}
-        </div>
       </div>
       <div class="card-footer">
         <div class="stats">
@@ -61,7 +58,7 @@
           <h6>{{ event.created | date: "d/M/yy" }}</h6>
         </div>
         <div class="stats">
-          <p class="card-category"><i class="material-icons">place</i> {{event.category}}</p>
+          <p class="card-category"><i class="material-icons">place</i> {{event.type}}</p>
         </div>
       </div>
     </div>

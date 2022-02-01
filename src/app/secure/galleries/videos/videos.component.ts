@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Response } from 'src/app/interfaces/response';
 import { Video } from 'src/app/interfaces/video';
 import { VideoService } from 'src/app/services/video.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-videos',
@@ -11,8 +12,11 @@ import { VideoService } from 'src/app/services/video.service';
 export class VideosComponent implements OnInit {
   videos: Video[] = [];
   lastPage: number;
+  safeSrc: SafeResourceUrl;
 
-  constructor(private videoService: VideoService) {}
+  constructor(private videoService: VideoService, private sanitizer: DomSanitizer) {
+    this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/c9F5kMUfFKk");
+  }
 
   ngOnInit(): void {
     this.refresh();

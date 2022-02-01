@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Router } from '@angular/router';
 import { Auth } from 'src/app/classes/auth';
 import { Category } from 'src/app/interfaces/category';
@@ -22,6 +23,53 @@ export class ArticleCreateComponent implements OnInit {
   form: FormGroup;
   owner = Auth.user.id;
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    // upload: (file: File) => { ... },
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+};
+
   constructor(
     private categoryService: CategoryService,
     private tagService: TagService,
@@ -32,6 +80,7 @@ export class ArticleCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     function setFormValidation(id) {
       $(id).validate({
         highlight: function (element) {
@@ -68,11 +117,12 @@ export class ArticleCreateComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      image: '',
-      title: '',
-      description: '',
-      body:'',
-      category: '',
+      image: ['', Validators.required],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      body:['', Validators.required],
+      category: ['', Validators.required],
+      created: '',
       tags: this.formBuilder.array([]),
     });
 
@@ -98,23 +148,26 @@ export class ArticleCreateComponent implements OnInit {
   }
 
   submit() {
-    const formData = this.form.getRawValue();
+    if (this.form.valid) {
+      const formData = this.form.getRawValue();
 
-    const data = {
-      image: formData.image,
-      title: formData.title,
-      description: formData.description,
-      body: formData.body,
-      category: formData.category,
-      tags: formData.tags.filter((p) => p.value === true).map((p) => p.id),
-      owner: this.owner,
-    };
-    this.articleService.create(data).subscribe((res) => {
-      this.router.navigate(['/articles']);
-    });
+      const data = {
+        image: formData.image,
+        title: formData.title,
+        description: formData.description,
+        body: formData.body,
+        category: formData.category,
+        created: formData.created,
+        tags: formData.tags.filter((p) => p.value === true).map((p) => p.id),
+        owner: this.owner,
+      };
+      this.articleService.create(data).subscribe((res) => {
+        this.router.navigate(['/articles']);
+      });
+    }
   }
 
-  upload(files: FileList) {
+  upload2(files: FileList) {
     const file = files.item(0);
 
     const data = new FormData();
@@ -126,4 +179,6 @@ export class ArticleCreateComponent implements OnInit {
       });
     });
   }
+
+  
 }

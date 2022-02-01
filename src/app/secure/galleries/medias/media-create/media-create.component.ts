@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+
 import { Auth } from 'src/app/classes/auth';
-import { Category } from 'src/app/interfaces/category';
+import { Type } from 'src/app/interfaces/type';
 import { Photo } from 'src/app/interfaces/photo';
 import { Response } from 'src/app/interfaces/response';
 import { Video } from 'src/app/interfaces/video';
-import { CategoryService } from 'src/app/services/category.service';
+import { TypeService } from 'src/app/services/type.service';
 import { ImageService } from 'src/app/services/image.service';
 import { MediaService } from 'src/app/services/media.service';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -21,15 +23,62 @@ declare let $ :any;
 })
 export class MediaCreateComponent implements OnInit {
 
-  categories: Category[] = [];
+  eventTypes: Type[] = [];
   photos: Photo[] = [];
   videos: Video[] = [];
   form: FormGroup;
   owner = Auth.user.id;
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    // upload: (file: File) => { ... },
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+};
+
   constructor(
     private imageService: ImageService,
-    private categoryService: CategoryService,
+    private typeService: TypeService,
     private photoService: PhotoService,
     private videoService: VideoService,
     private mediaservice: MediaService,
@@ -62,12 +111,13 @@ export class MediaCreateComponent implements OnInit {
     });
 
     this.form = this.formBuilder.group({
-      image: '',
-      name: '',
-      description: '',
-      category: '',
+      image: ['', Validators.required],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      type: ['', Validators.required],
       photos: this.formBuilder.array([]),
-      videos: this.formBuilder.array([])
+      videos: this.formBuilder.array([]),
+      created: ['', Validators.required],
     });
     this.photoService.all().subscribe(
       (res: Response) => {
@@ -95,9 +145,9 @@ export class MediaCreateComponent implements OnInit {
         });
       }
     );
-    this.categoryService.all().subscribe(
+    this.typeService.all().subscribe(
       (res: Response) =>{
-        this.categories = res.data;
+        this.eventTypes = res.data;
     });
   }
 
@@ -110,23 +160,26 @@ export class MediaCreateComponent implements OnInit {
   }
 
   submit(){
-    const formData = this.form.getRawValue();
+    if (this.form.valid) {
+      const formData = this.form.getRawValue();
 
-    const data = {
-      image: formData.image,
-      name: formData.name,
-      description: formData.description,
-      category: formData.category,
-      photos: formData.photos.filter(p => p.value === true).map(p => p.id),
-      videos: formData.videos.filter(p => p.value === true).map(p => p.id),
-      owner: this.owner
-    };
-    this.mediaservice.create(data).subscribe(
-      res => {
-        this.router.navigate(['/galleries/medias']);
-      }
-    );
-
+      const data = {
+        image: formData.image,
+        name: formData.name,
+        description: formData.description,
+        type: formData.type,
+        photos: formData.photos.filter(p => p.value === true).map(p => p.id),
+        videos: formData.videos.filter(p => p.value === true).map(p => p.id),
+        owner: this.owner,
+        created: formData.created
+      };
+      this.mediaservice.create(data).subscribe(
+        res => {
+          this.router.navigate(['/galleries/medias']);
+        }
+      );
+    }
+    
   }
 
   upload(files: FileList) {

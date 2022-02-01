@@ -32,7 +32,7 @@
                       formControlName="image"
                       type="file"
                       name="image"
-                      (change)="upload($event.target.files)"
+                      (change)="upload2($event.target.files)"
                     />
                   </span>
                   <a
@@ -79,7 +79,7 @@
             <label class="col-sm-2 col-form-label">Body</label>
             <div class="col-sm-9">
               <div class="form-group">
-                <textarea formControlName="body" cols="30" rows="10"></textarea>
+                <angular-editor formControlName="body" [config]="editorConfig"></angular-editor>
               </div>
             </div>
           </div>
@@ -129,9 +129,17 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <label class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-9">
+                <div class="form-group">
+                    <input class="form-control" name="created" type="datetime-local" formControlName="created" required="true" />
+                </div>
+            </div>
+        </div>
         </div>
         <div class="card-footer ml-auto mr-auto">
-          <button type="submit" class="btn btn-rose">Save</button>
+          <button [disabled]="!form.valid" type="submit" class="btn btn-rose">Save</button>
         </div>
       </div>
     </form>

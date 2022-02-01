@@ -1,4 +1,4 @@
-import { Category } from './category';
+import { Type } from './type';
 import { Photo } from './photo';
 import { User } from './user';
 import { Video } from './video';
@@ -8,7 +8,7 @@ export interface Media {
   name: string;
   description: string;
   image: string;
-  category: Category;
+  type: Type;
   photos: Photo[];
   videos: Video[];
   owner: User;

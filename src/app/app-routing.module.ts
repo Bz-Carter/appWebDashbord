@@ -35,6 +35,9 @@ import { SettingsComponent } from './secure/settings/settings.component';
 import { CalendarCreateComponent } from './secure/calendars/calendar-create/calendar-create.component';
 import { CalendarsComponent } from './secure/calendars/calendars.component';
 import { CalendarEditComponent } from './secure/calendars/calendar-edit/calendar-edit.component';
+import { TypesComponent } from './secure/types/types.component';
+import { TypeCreateComponent } from './secure/types/type-create/type-create.component';
+import { TypeEditComponent } from './secure/types/type-edit/type-edit.component';
 
 const routes: Routes = [
   {
@@ -53,6 +56,9 @@ const routes: Routes = [
       { path: 'categories', component: CategoriesComponent },
       { path: 'categories/create', component: CategoryCreateComponent },
       { path: 'categories/:id/edit', component: CategoryEditComponent },
+      { path: 'types', component: TypesComponent },
+      { path: 'types/create', component: TypeCreateComponent },
+      { path: 'types/:id/edit', component: TypeEditComponent },
       { path: 'tags', component: TagsComponent },
       { path: 'tags/create', component: TagCreateComponent },
       { path: 'tags/:id/edit', component: TagEditComponent },

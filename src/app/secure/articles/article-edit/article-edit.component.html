@@ -80,7 +80,8 @@
             <label class="col-sm-2 col-form-label">Body</label>
             <div class="col-sm-9">
               <div class="form-group">
-               <textarea formControlName="body" cols="30" rows="10"></textarea>
+               <angular-editor formControlName="body" [config]="editorConfig"></angular-editor>
+
               </div>
             </div>
           </div>
@@ -131,7 +132,7 @@
           </div>
         </div>
         <div class="card-footer ml-auto mr-auto">
-          <button type="submit" class="btn btn-rose">Save</button>
+          <button type="submit" [disabled]="!form.valid" class="btn btn-rose">Save</button>
         </div>
       </div>
     </form>

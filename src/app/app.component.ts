@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
         )
       )
       .subscribe((event) => {
-        // $.getScript('assets/js/material-dashboard');
+        $.getScript('assets/js/material-dashboard.js');
         this.location = this.router.url;
         if (!(event instanceof NavigationEnd)) {
           return;

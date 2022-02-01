@@ -28,6 +28,7 @@ export class CalendarEditComponent implements OnInit {
       image: ['', Validators.required],
       title: ['', Validators.required],
       start: ['', Validators.required],
+      end: ['', Validators.required],
       description: ['', Validators.required]
     });
 
@@ -39,6 +40,7 @@ export class CalendarEditComponent implements OnInit {
           image: this.annonce.image,
           title: this.annonce.title,
           start: this.annonce.start,
+          end: this.annonce.end,
           description: this.annonce.description,
         });
       });
@@ -52,6 +54,7 @@ export class CalendarEditComponent implements OnInit {
         image: formData.image,
         title: formData.title,
         start: formData.start,
+        end: formData.end,
         description: formData.description,
       };
       this.calendarService.update(this.annonce.id, data).subscribe((res) => {

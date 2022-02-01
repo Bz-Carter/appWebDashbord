@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/interfaces/category';
+import { Type } from 'src/app/interfaces/type';
 import { Media } from 'src/app/interfaces/media';
 import { Response } from 'src/app/interfaces/response';
-import { CategoryService } from 'src/app/services/category.service';
+import { TypeService } from 'src/app/services/type.service';
 import { MediaService } from 'src/app/services/media.service';
 
 @Component({
@@ -11,12 +11,12 @@ import { MediaService } from 'src/app/services/media.service';
   styleUrls: ['./medias.component.css'],
 })
 export class MediasComponent implements OnInit {
-  categories: Category[] = [];
+  types: Type[] = [];
   events: Media[] = [];
 
   constructor(
     private mediaService: MediaService,
-    private categoryService: CategoryService,
+    private typeService: TypeService,
   ) {}
 
   ngOnInit(): void {
@@ -25,16 +25,16 @@ export class MediasComponent implements OnInit {
 
   refresh() {
 
-    this.categoryService.all().subscribe((res: Response) => {
-      this.categories = res.data;
+    this.typeService.all().subscribe((res: Response) => {
+      this.types = res.data;
     });
 
     this.mediaService.all().subscribe((res: Response) => {
       this.events = res.data;
-      this.events.forEach((a: any) => {
-        this.categories.forEach((c: any) => {
-          if (a.category === c.id) {
-            a.category = c.name;
+      this.events.forEach((e: any) => {
+        this.types.forEach((t: any) => {
+          if (e.type === t.id) {
+            e.type = t.name;
           }
         });
       });

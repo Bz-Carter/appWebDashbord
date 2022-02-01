@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule} from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import {YouTubePlayerModule} from '@angular/youtube-player';
+
 import { SecureComponent } from './secure.component';
 import { NavComponent } from './nav/nav.component';
 import { MenuComponent } from './menu/menu.component';
@@ -39,6 +43,9 @@ import { MediaEditComponent } from './galleries/medias/media-edit/media-edit.com
 import { CalendarsComponent } from './calendars/calendars.component';
 import { CalendarCreateComponent } from './calendars/calendar-create/calendar-create.component';
 import { CalendarEditComponent } from './calendars/calendar-edit/calendar-edit.component';
+import { TypesComponent } from './types/types.component';
+import { TypeCreateComponent } from './types/type-create/type-create.component';
+import { TypeEditComponent } from './types/type-edit/type-edit.component';
 
 @NgModule({
   declarations: [
@@ -79,13 +86,19 @@ import { CalendarEditComponent } from './calendars/calendar-edit/calendar-edit.c
     CalendarsComponent,
     CalendarCreateComponent,
     CalendarEditComponent,
+    TypesComponent,
+    TypeCreateComponent,
+    TypeEditComponent
   ],
   exports: [SecureComponent],
   imports: [
     CommonModule, 
     RouterModule, 
     FormsModule, 
-    ReactiveFormsModule  
+    ReactiveFormsModule,
+    AngularEditorModule,
+    HttpClientModule,
+    YouTubePlayerModule
   ],
 })
 export class SecureModule {}

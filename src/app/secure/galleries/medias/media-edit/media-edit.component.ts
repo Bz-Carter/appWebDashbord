@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+
 import { Auth } from 'src/app/classes/auth';
-import { Category } from 'src/app/interfaces/category';
+import { Type } from 'src/app/interfaces/type';
 import { Media } from 'src/app/interfaces/media';
 import { Photo } from 'src/app/interfaces/photo';
 import { Response } from 'src/app/interfaces/response';
 import { Video } from 'src/app/interfaces/video';
-import { CategoryService } from 'src/app/services/category.service';
+import { TypeService } from 'src/app/services/type.service';
 import { ImageService } from 'src/app/services/image.service';
 import { MediaService } from 'src/app/services/media.service';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -21,15 +23,62 @@ declare let $: any;
 })
 export class MediaEditComponent implements OnInit {
   medias: Media;
-  categories: Category[] = [];
+  types: Type[] = [];
   photos: Photo[] = [];
   videos: Video[] = [];
   form: FormGroup;
   owner = Auth.user.id;
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+      spellcheck: true,
+      height: 'auto',
+      minHeight: '0',
+      maxHeight: 'auto',
+      width: 'auto',
+      minWidth: '0',
+      translate: 'yes',
+      enableToolbar: true,
+      showToolbar: true,
+      placeholder: 'Enter text here...',
+      defaultParagraphSeparator: '',
+      defaultFontName: '',
+      defaultFontSize: '',
+      fonts: [
+        {class: 'arial', name: 'Arial'},
+        {class: 'times-new-roman', name: 'Times New Roman'},
+        {class: 'calibri', name: 'Calibri'},
+        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+      ],
+      customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    // upload: (file: File) => { ... },
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['bold', 'italic'],
+      ['fontSize']
+    ]
+};
+
   constructor(
     private imageService: ImageService,
-    private categoryService: CategoryService,
+    private typeService: TypeService,
     private photoService: PhotoService,
     private videoService: VideoService,
     private mediaService: MediaService,
@@ -40,10 +89,11 @@ export class MediaEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      image: '',
-      name: '',
-      description: '',
-      category: '',
+      image: ['', Validators.required],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      type: ['', Validators.required],
+      created: ['', Validators.required],
       photos: this.formBuilder.array([]),
       videos: this.formBuilder.array([]),
     });
@@ -105,8 +155,8 @@ export class MediaEditComponent implements OnInit {
         );
       });
     });
-    this.categoryService.all().subscribe((res: Response) => {
-      this.categories = res.data;
+    this.typeService.all().subscribe((res: Response) => {
+      this.types = res.data;
     });
 
     this.route.params.subscribe((params) => {
@@ -139,7 +189,7 @@ export class MediaEditComponent implements OnInit {
         this.form.patchValue({
           name: this.medias.name,
           description: this.medias.description,
-          category: this.medias.category,
+          type: this.medias.type,
           image: this.medias.image,
           videos: values,
           photos: values2,
@@ -157,20 +207,23 @@ export class MediaEditComponent implements OnInit {
   }
 
   submit() {
-    const formData = this.form.getRawValue();
+    if (this.form.valid) {
+      const formData = this.form.getRawValue();
 
-    const data = {
-      image: formData.image,
-      name: formData.name,
-      description: formData.description,
-      category: formData.category,
-      photos: formData.photos.filter((p) => p.value === true).map((p) => p.id),
-      videos: formData.videos.filter((p) => p.value === true).map((p) => p.id),
-      owner: this.owner,
-    };
-    this.mediaService.update(this.medias.id, data).subscribe((res) => {
-      this.router.navigate(['/galleries/medias']);
-    });
+      const data = {
+        image: formData.image,
+        name: formData.name,
+        description: formData.description,
+        type: formData.type,
+        photos: formData.photos.filter((p) => p.value === true).map((p) => p.id),
+        videos: formData.videos.filter((p) => p.value === true).map((p) => p.id),
+        owner: this.owner,
+        created: formData.created
+      };
+      this.mediaService.update(this.medias.id, data).subscribe((res) => {
+        this.router.navigate(['/galleries/medias']);
+      });
+    }
   }
 
   upload(files: FileList) {
