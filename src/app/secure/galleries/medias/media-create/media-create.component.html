@@ -87,7 +87,7 @@
                                     <div class="picture">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="checkbox" formControlName="value"> 
-                                            <img [src]="photo.image" alt="Thumbnail Image" class="rounded img-fluid">
+                                            <img loading="lazy" data-src="{{photo.image}}" alt="Thumbnail Image" class="rounded img-fluid">
                                             {{ photo.name }}
                                             <br><br>
                                             <span class="form-check-sign">
