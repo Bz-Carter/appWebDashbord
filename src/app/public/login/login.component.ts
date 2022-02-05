@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {environment} from '../../../environments/environment';
+import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 declare let $, md: any;
 
 @Component({
@@ -27,53 +28,17 @@ export class LoginComponent implements OnInit {
       }, 700);
     });
 
-    function setFormValidation(id) {
-      $(id).validate({
-        highlight: function (element) {
-          $(element)
-            .closest('.form-group')
-            .removeClass('has-success')
-            .addClass('has-danger');
-          $(element)
-            .closest('.form-check')
-            .removeClass('has-success')
-            .addClass('has-danger');
-        },
-        success: function (element) {
-          $(element)
-            .closest('.form-group')
-            .removeClass('has-danger')
-            .addClass('has-success');
-          $(element)
-            .closest('.form-check')
-            .removeClass('has-danger')
-            .addClass('has-success');
-        },
-        errorPlacement: function (error, element) {
-          $(element).closest('.form-group').append(error);
-        },
-      });
-    }
-
-    $(document).ready(function () {
-      setFormValidation('#RegisterValidation');
-      setFormValidation('#TypeValidation');
-      setFormValidation('#LoginValidation');
-      setFormValidation('#RangeValidation');
-    });
-
     this.form = this.formBuilder.group({
-      email: '',
-      password: '',
+      email: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
   submit(): void {
-    const data = this.form.getRawValue();
-
-    this.authService.login(data).subscribe((res: any) => {
-      localStorage.setItem('token', res.token);
-      this.router.navigate(['/dashboard']);
-    });
+    if (this.form.valid) {
+      this.authService.login(this.form.getRawValue())
+      .subscribe(() => this.router.navigate(['/']));
+    }
+    
   }
 }

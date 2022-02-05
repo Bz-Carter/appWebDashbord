@@ -12,9 +12,4 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  logout() {
-    this.authService.logout({}).subscribe(() => {
-      this.router.navigate(['/login']);
-    });
-  }
 }

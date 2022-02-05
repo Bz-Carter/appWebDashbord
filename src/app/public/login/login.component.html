@@ -35,6 +35,7 @@
                   type="email"
                   class="form-control"
                   id="email"
+                  name="email"
                   formControlName="email"
                   required="true"
                   placeholder="Email..."
@@ -55,6 +56,7 @@
                   class="form-control"
                   id="passwords"
                   formControlName="password"
+                  name="password"
                   required="true"
                   placeholder="Password..."
                 />
@@ -63,7 +65,7 @@
           </span>
         </div>
         <div class="card-footer ml-auto mr-auto">
-          <button type="submit" class="btn btn-rose">LETS GO</button>
+          <button [disabled]="!form.valid" type="submit" class="btn btn-rose">Connexion</button>
         </div>
       </div>
     </form>

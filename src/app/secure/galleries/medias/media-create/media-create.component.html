@@ -117,12 +117,12 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row" formArrayName="videos">
-                                  <div class="col-md-4" *ngFor="let video of videos; let i = index" [formGroupName]="i">
+                                  <div class="col-md-6" *ngFor="let video of videos; let i = index" [formGroupName]="i">
                                     <div class="picture">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="checkbox" formControlName="value">
-                                            <iframe class="rounded img-fluid" [class.thumbnail]="thumbnail" [src]="video.link">
-                                            </iframe>
+                                            <youtube-player loading="lazy" videoId="{{video.link}}" width="200" height="150"></youtube-player>
+
                                             <br>
                                             {{ video.name }}
                                             <br><br>
