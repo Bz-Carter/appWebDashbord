@@ -65,7 +65,7 @@ export class MediaEditComponent implements OnInit {
         tag: 'h1',
       },
     ],
-    uploadUrl: 'v1/image',
+    uploadUrl: 'http://localhost:8000/api/calendar',
     // upload: (file: File) => { ... },
     uploadWithCredentials: false,
     sanitize: true,

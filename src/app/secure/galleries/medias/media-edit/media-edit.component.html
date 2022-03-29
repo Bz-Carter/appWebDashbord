@@ -114,121 +114,80 @@
             </div>
 
             <div class="col-md-12 text-center">
-              <div class="card-header"></div>
-
+              <div class="card-header">
+              </div>
+              
               <!-- Classic Modal -->
-              <div
-                class="modal fade"
-                id="myPhotos"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="myModalLabel"
-                aria-hidden="true"
-              >
+              <div class="modal fade" id="myPhotos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h4 class="modal-title">Choose Photos</h4>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-hidden="true"
-                      >
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="material-icons">clear</i>
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div class="row" formArrayName="photos">
-                        <div
-                          class="col-md-4"
-                          *ngFor="let photo of photos; let i = index"
-                          [formGroupName]="i"
-                        >
-                          <div class="picture">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" formControlName="value" />
-                              <img loading="lazy" class="img" data-src="{{photo.image}}" />
-                              {{ photo.name }}
-                              <br /><br />
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
+                        <div class="row" formArrayName="photos">
+                          <div class="col-md-4" *ngFor="let photo of photos; let i = index" [formGroupName]="i">
+                            <div class="picture">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" formControlName="value"> 
+                                    <img loading="lazy" data-src="{{photo.image}}" alt="Thumbnail Image" class="rounded img-fluid">
+                                    {{ photo.name }}
+                                    <br><br>
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
                           </div>
                         </div>
-                      </div>
                     </div>
                     <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-danger btn-link"
-                        data-dismiss="modal"
-                      >
-                        Ok
-                      </button>
+                      <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Ok</button>
                     </div>
                   </div>
                 </div>
               </div>
               <!--  End Modal -->
               <!-- notice modal -->
-              <div
-                class="modal fade"
-                id="myVideos"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="myModalLabel"
-                aria-hidden="true"
-              >
+              <div class="modal fade" id="myVideos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title">Choix de Videos</h4>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-hidden="true"
-                      >
+                      <h4 class="modal-title">Choose Videos</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <i class="material-icons">clear</i>
                       </button>
                     </div>
                     <div class="modal-body">
-                      <div class="row" formArrayName="videos">
-                        <div
-                          class="col-md-4"
-                          *ngFor="let video of videos; let i = index"
-                          [formGroupName]="i"
-                        >
-                          <div class="picture">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" formControlName="value"/>
-                              <youtube-player loading="lazy" videoId="{{video.link}}" width="200" height="150"></youtube-player>
-                              <br />
-                              {{ video.name }}
-                              <br /><br />
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
+                        <div class="row" formArrayName="videos">
+                          <div class="col-md-6" *ngFor="let video of videos; let i = index" [formGroupName]="i">
+                            <div class="picture">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" formControlName="value">
+                                    <youtube-player loading="lazy" videoId="{{video.link}}" width="200" height="150"></youtube-player>
+
+                                    <br>
+                                    {{ video.name }}
+                                    <br><br>
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                </label>
+                            </div>
                           </div>
                         </div>
-                      </div>
                     </div>
                     <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-danger btn-link"
-                        data-dismiss="modal"
-                      >
-                        Ok
-                      </button>
+                      <button type="button" class="btn btn-danger btn-link" data-dismiss="modal">Ok</button>
                     </div>
                   </div>
                 </div>
               </div>
               <!-- end notice modal -->
+              
             </div>
           </div>
         </div>

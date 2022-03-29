@@ -40,7 +40,7 @@
                   <label class="col-sm-2 col-form-label">Description</label>
                   <div class="col-sm-9">
                       <div class="form-group">
-                          <input class="form-control" name="description" type="text" formControlName="description" required="true" />
+                        <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
                       </div>
                   </div>
               </div>

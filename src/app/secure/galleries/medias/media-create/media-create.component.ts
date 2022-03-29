@@ -113,7 +113,7 @@ export class MediaCreateComponent implements OnInit {
     this.form = this.formBuilder.group({
       image: ['', Validators.required],
       name: ['', Validators.required],
-      description: ['', Validators.required],
+      description: '',
       type: ['', Validators.required],
       photos: this.formBuilder.array([]),
       videos: this.formBuilder.array([]),

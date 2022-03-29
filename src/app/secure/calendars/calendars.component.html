@@ -49,14 +49,12 @@
           <h4 class="card-title">
             <a>{{ annonce.title }}</a>
           </h4>
-          <div class="card-description">
-            {{ annonce.description }}
-          </div>
         </div>
         <div class="card-footer">
           <div class="stats">
             <i class="material-icons">date_range</i>
-            {{ annonce.start | date: "MMM d, y, H:m" }}
+            {{ annonce.start | date: "MMM d, y, H:m" }} - 
+            {{ annonce.end | date: "MMM d, y, H:m" }}
           </div>
         </div>
       </div>
